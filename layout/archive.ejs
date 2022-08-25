@@ -1,4 +1,4 @@
-<%- partial('_partial/bg-cover') %>
+<!-- <%- partial('_partial/bg-cover') %>
 
 <main class="content">
 
@@ -127,4 +127,77 @@
 
 <% if (page.total > 1) { %>
 <%- partial('_partial/paging') %>
-<% } %>
+<% } %> -->
+
+
+<style>
+    .list-group-item {
+        position: relative;
+        display: block;
+        padding: .75rem 1.25rem;
+    }
+
+    .list-group-item-action {
+        width: 100%;
+        text-align: inherit;
+    }
+
+    .list-group-item-action:hover {
+        color: #2186CA;
+        background-color: #f8f9fa;
+    }
+
+    .list-group-item-item {
+        display: inline-block;
+    }
+
+    .list-header-title {
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+        font-size: x-large;
+        font-weight: bold;
+    }
+
+    .header-title {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        font-size: xx-large;
+        font-weight: bold;
+    }
+</style>
+
+<%- partial('_partial/bg-cover') %>
+    <div id="category-cloud" class="container chip-container">
+        <div class="card">
+            <div class="card-content">
+                <article class="container articles">
+                    <div class="header-title">
+                        共计<%- site.posts.length %>篇文章
+                    </div>
+                    <% var dateCursor %>
+                        <% page.posts.each(function (post) { %>
+                            <% if(date(post.date, "YYYY" ) !==dateCursor) { %>
+                                <% dateCursor=date(post.date, "YYYY" ) %>
+                                    <p class="list-header-title">
+                                        <%= dateCursor %>
+                                    </p>
+                                    <% } %>
+                                        <a href="<%- url_for(post.path) %>"
+                                            class="list-group-item list-group-item-action">
+                                            <div class="list-group-item-item">
+                                                <%= post.title %>
+                                            </div>
+                                            <div style="float: right;">
+                                                <%- date(post.date, "MM-DD" ) %>
+                                            </div>
+                                        </a>
+                                        <% }) %>
+                </article>
+            </div>
+        </div>
+    </div>
+
+
+    <% if (page.total> 1) { %>
+        <%- partial('_partial/paging') %>
+            <% } %>
